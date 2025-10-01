@@ -1,16 +1,23 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 
 interface ScheduleModalProps {
   isOpen: boolean;
   onClose: () => void;
+  initialDate?: string;
 }
 
-const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose }) => {
+const ScheduleModal: React.FC<ScheduleModalProps> = ({ isOpen, onClose, initialDate }) => {
   const [name, setName] = useState('');
   const [venue, setVenue] = useState('');
   const [address, setAddress] = useState('');
   const [date, setDate] = useState('');
   const [fee, setFee] = useState('');
+
+  useEffect(() => {
+    if (isOpen) {
+      setDate(initialDate || '');
+    }
+  }, [isOpen, initialDate]);
 
   const handleSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
