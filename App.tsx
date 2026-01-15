@@ -7,11 +7,9 @@ import Footer from './components/Footer';
 import FloatingNote from './components/FloatingNote';
 import { InstagramIcon } from './components/icons/InstagramIcon';
 import { CalendarIcon } from './components/icons/CalendarIcon';
-import CalendarModal from './components/CalendarModal';
 
 const App: React.FC = () => {
   const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
-  const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
   const [initialDate, setInitialDate] = useState('');
 
   const links = [
@@ -37,11 +35,6 @@ const App: React.FC = () => {
     setInitialDate('');
   };
   
-  const handleDateSelect = (date: string) => {
-    setIsCalendarModalOpen(false);
-    handleOpenScheduleModal(date);
-  };
-
   return (
     <div className="relative min-h-screen w-full bg-black text-white overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-red-950 via-black to-green-950 animate-gradient-bg"></div>
@@ -63,13 +56,6 @@ const App: React.FC = () => {
               <LinkButton key={index} href={link.href} text={link.text} icon={link.icon} />
             ))}
              <button
-              onClick={() => setIsCalendarModalOpen(true)}
-              className="group relative flex items-center justify-center w-full p-4 bg-neutral-900 text-white rounded-xl shadow-lg hover:shadow-green-500/40 transition-all duration-300 transform hover:scale-105 hover:bg-neutral-800 border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-green-500"
-            >
-              <div className="absolute left-4 w-6 h-6"><CalendarIcon /></div>
-              <span className="font-semibold text-sm sm:text-base">Agenda de Shows</span>
-            </button>
-             <button
               onClick={() => handleOpenScheduleModal()}
               className="group relative flex items-center justify-center w-full p-4 bg-neutral-900 text-white rounded-xl shadow-lg hover:shadow-red-500/40 transition-all duration-300 transform hover:scale-105 hover:bg-neutral-800 border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-red-500"
             >
@@ -82,11 +68,6 @@ const App: React.FC = () => {
         <Footer />
       </main>
 
-      <CalendarModal 
-        isOpen={isCalendarModalOpen} 
-        onClose={() => setIsCalendarModalOpen(false)}
-        onDateSelect={handleDateSelect}
-      />
       <ScheduleModal 
         isOpen={isScheduleModalOpen} 
         onClose={handleCloseScheduleModal} 
